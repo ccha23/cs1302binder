@@ -30,7 +30,7 @@ https://docs.docker.com/get-started/#download-and-install-docker).
   - Enter `Remote-Containers: Clone Repository in Container Volume...`
   - Enter the repository url `https://github.com/ccha23/cs1302.git`
   - You can work on the notebooks in the `cs1302` subfolder and your files will be kept in a persistent docker volume.
-  - It will also start a jupyter lab server and open it in a browser. Alternative, you can start another instance by opening a terminal (`` Control-Shift-` ``) and run
+  - You can start a jupyter lab server and open it in a browser by opening a terminal (`` Control-Shift-` ``) and run
   ```
   jupyter lab --NotebookApp.token=''
   ```

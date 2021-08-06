@@ -5,7 +5,8 @@
 
 	"image": "chungc/cs1302:v0.3",
 
-	"runArgs": ["--memory=4g"],
+	// See https://faun.pub/understanding-docker-container-memory-limit-behavior-41add155236c
+	"runArgs": ["-m","4g"],
 
 	// Set *default* container specific settings.json values on container create.
 	"settings": { 
