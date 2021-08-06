@@ -20,6 +20,7 @@
 		"python.linting.enabled": true,
 		"python.linting.pylintEnabled": true,
 		"python.formatting.autopep8Path": "/opt/conda/bin/autopep8",
+		"python.formatting.blackPath": "/opt/conda/bin/black",
 		"python.formatting.yapfPath": "/opt/conda/bin/yapf",
 		"python.linting.flake8Path": "/opt/conda/bin/flake8",
 		"python.linting.pycodestylePath": "/opt/conda/bin/pycodestyle",
@@ -29,8 +30,11 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
+		"eamodio.gitlens",
+		"hediet.vscode-drawio",	
 		"ms-python.python",
-		"ms-python.vscode-pylance"
+		"ms-python.vscode-pylance",
+		"MS-vsliveshare.vsliveshare-pack"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -44,7 +48,7 @@
 		}
 	},
 
-	"postCreateCommand": "gitpuller https://github.com/ccha23/cs1302 main cs1302",
+	"postCreateCommand": "gitpuller https://github.com/ccha23/cs1302 main cs1302 && jupyter lab --NotebookApp.token=''",
 
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "jovyan"

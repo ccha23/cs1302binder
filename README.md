@@ -1,11 +1,11 @@
 # CS1302 Jupyter
 
-This is the repo for CS1302 Jupyter Environment 
+This is the repository for running the CS1302 Jupyter Environment outside a jupyterhub server. 
 
-- To run the notebooks with temporary storage, click 
+1. To run the notebooks with temporary storage, click 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ccha23/cs1302jupyter/HEAD?urlpath=git-pull?repo%3Dhttps%3A%2F%2Fgithub.com%2Fccha23%2Fcs1302%26urlpath%3Dlab)
 
-- To run locally on your computer with permanent storage:
+2. To run locally on your computer with permanent storage:
   - Install [docker](
 https://docs.docker.com/get-started/#download-and-install-docker).
   - Run the docker in a terminal from a working directory of your choice:  
@@ -24,13 +24,13 @@ https://docs.docker.com/get-started/#download-and-install-docker).
     - To finish, stop the notebook server by pressing `Control-C` in the terminal that runs the docker.
     - To restart, run the docker command again from the same working directory.
 
-- To run on Visual Studio Code locally
+3. To run on Visual Studio Code locally
   - Install [Visual Studio Code](https://code.visualstudio.com/) and the extension [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
   - Click `View`->`Command Palette` 
   - Enter `Remote-Containers: Clone Repository in Container Volume...`
   - Enter the repository url `https://github.com/ccha23/cs1302.git`
   - You can work on the notebooks in the `cs1302` subfolder and your files will be kept in a persistent docker volume.
-  - You can also start jupyter lab by opening a terminal (`` Control-Shift-` ``) and run
+  - It will also start a jupyter lab server and open it in a browser. Alternative, you can start another instance by opening a terminal (`` Control-Shift-` ``) and run
   ```
   jupyter lab --NotebookApp.token=''
   ```
