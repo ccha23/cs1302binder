@@ -5,6 +5,8 @@
 
 	"image": "chungc/cs1302:v0.3",
 
+	"runArgs": ["--memory=4g"],
+
 	// Set *default* container specific settings.json values on container create.
 	"settings": { 
 		"terminal.integrated.prrofiles.linux": {
@@ -45,8 +47,6 @@
 			"onAutoForward": "openBrowser"
 		}
 	},
-
-	"runArgs": ["-m", "4g"],
 
 	"postCreateCommand": "gitpuller https://github.com/ccha23/cs1302 main cs1302",
 
