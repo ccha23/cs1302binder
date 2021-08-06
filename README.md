@@ -10,13 +10,14 @@ This is the repo for CS1302 Jupyter Environment
 https://docs.docker.com/get-started/#download-and-install-docker).
   - Run the docker in a terminal from a working directory of your choice:  
   ```markdown
-  docker run --rm -p 10000:8888 \
+  docker run --rm -p 10000:8888 -m 4g \
            -v "${PWD}":/home/jovyan \
            chungc/cs1302:v0.2 \
            start-notebook.sh --NotebookApp.token=''
   ```
     - It may take a couple minutes to run for the first time as it needs to download the docker image. Subsequent run should be fast.
-    - Port 10000 should be free for use. Otherwise, change it to a free port on your computer.
+    - Port 10000 specified by `-p` should be free for use. Otherwise, change it to a free port on your computer.
+    - The maximum memory limit is set to be 4GB by `-m`.
   - Pull the notebooks from this repo in a web browser:  
   <http://localhost:10000/git-pull?repo=https%3A%2F%2Fgithub.com%2Fccha23%2Fcs1302&urlpath=lab&branch=main>
     - You can work on the notebooks under the `cs1302` subfolder. Clicking the above link again will automatically pull and merge changes from the repo, without overwritting your changes.
