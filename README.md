@@ -3,7 +3,7 @@
 This is the repository for running the CS1302 Jupyter Environment outside a jupyterhub server. 
 
 1. To run the notebooks with temporary storage, click 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ccha23/cs1302jupyter/HEAD?urlpath=git-pull?repo%3Dhttps%3A%2F%2Fgithub.com%2Fccha23%2Fcs1302%26urlpath%3Dlab)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ccha23/cs1302jupyter/HEAD?urlpath=git-pull?repo%3Dhttps%3A%2F%2Fgithub.com%2Fccha23%2Fcs1302%26urlpath%3Dlab%2Fcs1302)
 
 2. To run locally on your computer with permanent storage:
   - Install [docker](
@@ -19,7 +19,7 @@ https://docs.docker.com/get-started/#download-and-install-docker).
     - Port 10000 specified by `-p` should be free for use. Otherwise, change it to a free port on your computer.
     - The maximum memory limit is set to be 4GB by `-m`.
   - Pull the notebooks from this repo in a web browser:  
-  <http://localhost:10000/git-pull?repo=https%3A%2F%2Fgithub.com%2Fccha23%2Fcs1302&urlpath=lab&branch=main>
+  <http://localhost:10000/git-pull?repo=https%3A%2F%2Fgithub.com%2Fccha23%2Fcs1302&urlpath=lab%2Fcs1302&branch=main>
     - You can work on the notebooks under the `cs1302` subfolder. Clicking the above link again will automatically pull and merge changes from the repo, without overwritting your changes.
     - To finish, stop the notebook server by pressing `Control-C` in the terminal that runs the docker.
     - To restart, run the docker command again from the same working directory.
