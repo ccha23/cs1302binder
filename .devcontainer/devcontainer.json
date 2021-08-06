@@ -2,14 +2,12 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.185.0/containers/python-3
 {
 	"name": "CS1302 Python 3",
-	"build": {
-		"dockerfile": "Dockerfile",
-		"context": "..",
-	},
+
+	"image": "chungc/cs1302:v0.3",
 
 	// Set *default* container specific settings.json values on container create.
 	"settings": { 
-		"terminal.integrated.profiles.linux": {
+		"terminal.integrated.prrofiles.linux": {
 			"bash": {
 				"path": "/bin/bash"
 			}
@@ -48,7 +46,9 @@
 		}
 	},
 
-	"postCreateCommand": "gitpuller https://github.com/ccha23/cs1302 main cs1302 && jupyter lab --NotebookApp.token=''",
+	"runArgs": ["-m", "4g"],
+
+	"postCreateCommand": "gitpuller https://github.com/ccha23/cs1302 main cs1302",
 
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "jovyan"
