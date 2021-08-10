@@ -8,5 +8,5 @@ c.Exchange.path_includes_course = True
 # c.Authenticator.plugin_class = JupyterHubAuthPlugin
 
 # With kubernetes
-# from ngshare_exchange import configureExchange
-# configureExchange(c, 'http://ngshare1:8080/services/ngshare')
+from ngshare_exchange import configureExchange
+configureExchange(c, 'http://ngshare1:8080/services/ngshare')

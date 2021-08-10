@@ -2,7 +2,12 @@ version: '3'
 
 services: 
     cs1302:
-        image: chungc/cs1302:v0.3
+        image: chungc/cs1302:v0.4
+        build: 
+            context: .
+            dockerfile: Dockerfile.local
+    cs1302local:
+        image: localhost:32000/cs1302:v0.4
         build: 
             context: .
             dockerfile: Dockerfile
