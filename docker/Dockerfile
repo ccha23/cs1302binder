@@ -2,8 +2,6 @@ FROM jupyter/scipy-notebook:python-3.8.8
 
 USER root
 
-# For installation of manim
-
 # Install all OS dependencies for fully functional notebook server
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
@@ -52,17 +50,20 @@ RUN wget -O /tmp/install-tl-unx.tar.gz http://mirror.ctan.org/systems/texlive/tl
         setspace standalone tcolorbox tipa ucs upquote qsymbols wasy wasysym xcolor xetex xkeyval adjustbox collectbox titling booktabs enumitem \
     && fix-permissions /usr/local/texlive
 
+# fix https://github.com/jupyter/docker-stacks/issues/815
+RUN cat /etc/skel/.bashrc >> /etc/bash.bashrc
 
-ENV TZ=Hongkong
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN TZ=Hongkong && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN curl -fsSL https://code-server.dev/install.sh | sh && \
-    rm -rf /home/jovyan/.cache/
+RUN VERSION=3.10.2 && \
+    curl -fOL https://github.com/cdr/code-server/releases/download/v${VERSION}/code-server_${VERSION}_amd64.deb && \
+    dpkg -i code-server_${VERSION}_amd64.deb && \
+    rm -rf code-server_${VERSION}_amd64.deb
 
 # Switch back to jovyan
 USER ${NB_UID}
 
-COPY fix-nbextensions /usr/local/bin/fix-nbextensions
+COPY fix-nbextensions /usr/local/bin/fix-nbextensions    
 
 # Install Python 3 packages
 RUN conda install --quiet --yes \
@@ -70,7 +71,7 @@ RUN conda install --quiet --yes \
     'hide_code=0.6.*' \
     'ipydrawio=1.1.*' \
     'ipydrawio-export=1.1.*' \
-    'jupyter-server-proxy=3.1.*' \
+    'jupyter-server-proxy=3.1.*' \  
     'jupyter-vscode-proxy=0.1.*' \
     # 'jupyter-videochat=0.5.*' \
     'jupyterhub=1.4.*' \
@@ -113,15 +114,8 @@ RUN conda install --quiet --yes \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}" 
 
-USER root
-
-COPY nbgrader_config.py /etc/jupyter/
-COPY condarc "${CONDA_DIR}/.condarc"
-RUN fix-permissions /etc/jupyter/ && fix-permissions "${CONDA_DIR}"
-
-# fix https://github.com/jupyter/docker-stacks/issues/815
-RUN cat /etc/skel/.bashrc >> /etc/bash.bashrc 
-
-USER ${NB_UID}
+# COPY nbgrader_config.py /etc/jupyter/
+COPY --chown=${NB_USER}:${NB_GID} condarc "${CONDA_DIR}/.condarc"
+COPY --chown=${NB_USER}:${NB_GID} nbgrader_config.py /etc/jupyter/
 
 WORKDIR "${HOME}"
