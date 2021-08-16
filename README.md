@@ -12,7 +12,7 @@ https://docs.docker.com/get-started/#download-and-install-docker).
   ```markdown
   docker run --rm -p 10000:8888 -m 4g \
            -v "${PWD}":/home/jovyan \
-           chungc/cs1302:v0.3 \
+           chungc/cs1302:v0.5 \
            start-notebook.sh --NotebookApp.token=''
   ```
     - It may take a couple minutes to run for the first time as it needs to download the docker image. Subsequent run should be fast.
