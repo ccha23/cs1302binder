@@ -28,7 +28,7 @@ https://docs.docker.com/get-started/#download-and-install-docker).
   - Install [Visual Studio Code](https://code.visualstudio.com/) and the extension [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
   - Click `View`->`Command Palette` 
   - Enter `Remote-Containers: Clone Repository in Container Volume...`
-  - Enter the repository url `https://github.com/ccha23/cs1302.git`
+  - Enter the repository url `https://github.com/ccha23/cs1302jupyter.git`
   - You can work on the notebooks in the `cs1302` subfolder and your files will be kept in a persistent docker volume.
   - You can start a jupyter lab server and open it in a browser by opening a terminal (`` Control-Shift-` ``) and run
   ```
