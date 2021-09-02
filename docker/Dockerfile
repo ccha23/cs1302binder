@@ -71,9 +71,9 @@ RUN conda install --quiet --yes \
     'hide_code=0.6.*' \
     'ipydrawio=1.1.*' \
     'ipydrawio-export=1.1.*' \
+    'ipykernel' \
     'jupyter-server-proxy=3.1.*' \  
     'jupyter-vscode-proxy=0.1.*' \
-    # 'jupyter-videochat=0.5.*' \
     'jupyterhub=1.4.*' \
     'jupyterlab_code_formatter=1.4.*' \
     'jupyterlab-lsp=3.8.*' \
@@ -84,7 +84,6 @@ RUN conda install --quiet --yes \
     'jupyter_nbextensions_configurator=0.4.*' \
     'jupyter_contrib_nbextensions=0.5.*' \
     'nbgitpuller=0.10.*' \
-    # 'nb_conda_kernels=2.3.*' \
     'python-lsp-server=1.2.*' \
     'rise=5.7.*' \
     'xeus-python==0.12.*' \
@@ -101,21 +100,11 @@ RUN conda install --quiet --yes \
     'manim==0.7.*' \
     'itikz==0.1.*' \
     'jupyter-www-proxy' \
-    'mytutor' \
-    'ngshare_exchange==0.5.*' \
-    'git+https://github.com/jupyter/nbgrader.git@cdcba95ee334e667b4438532dd27093b3c4df099' &&\
-    jupyter nbextension install --symlink --sys-prefix --py nbgrader && \
-    jupyter nbextension enable --sys-prefix --py nbgrader && \
-    jupyter serverextension enable --sys-prefix --py nbgrader  && \   
-    jupyter nbextension disable --sys-prefix formgrader/main --section=tree && \
-    jupyter nbextension disable --sys-prefix course_list/main --section=tree && \
-    jupyter serverextension disable --sys-prefix nbgrader.server_extensions.course_list && \
+    'mytutor' && \
     conda clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}" 
 
-# COPY nbgrader_config.py /etc/jupyter/
 COPY --chown=${NB_USER}:${NB_GID} condarc "${CONDA_DIR}/.condarc"
-COPY --chown=${NB_USER}:${NB_GID} nbgrader_config.py /etc/jupyter/
 
 WORKDIR "${HOME}"
