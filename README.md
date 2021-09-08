@@ -13,7 +13,7 @@ https://docs.docker.com/get-started/#download-and-install-docker).
     ```markdown
     docker run --rm -p 10000:8888 -m 4g \
             -v "${PWD}":/home/jovyan \
-            chungc/cs1302:v0.6 \
+            chungc/cs1302:v0.7 \
             start-notebook.sh --NotebookApp.token=''
     ```
     - For Windows PowerShell:

@@ -5,6 +5,11 @@ USER root
 # Install all OS dependencies for fully functional notebook server
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
+    gnupg2 apt-transport-https && \
+    wget -O - https://xpra.org/gpg.asc | apt-key add - && \
+    echo "deb https://xpra.org/ focal main" > /etc/apt/sources.list.d/xpra.list && \
+    apt-get update --yes && \
+    apt-get install --yes --no-install-recommends \
     build-essential \
     curl \
     vim-tiny \
@@ -33,8 +38,23 @@ RUN apt-get update --yes && \
     libffi-dev \
     libpango1.0-dev \
     pkg-config \
-    sshfs && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    sshfs \
+    # ---- xpra ---- #
+    xfce4 \
+    gconf2 \
+    xfce4-terminal \
+    xfce4-clipman \
+    xterm \
+    xfce4-taskmanager \
+    xauth xinit dbus-x11 \
+    xpra xpra-html5 \
+    python3-dbus python3-paramiko python3-xdg python3-pyinotify python3-netifaces python3-uinput && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    # fix https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=908156
+    mkdir -p /run/xpra &&\
+    mkdir -p /run/user && \
+    fix-permissions /run && \
+    chown -R ${NB_USER} /run
 
 # setup a minimal texlive installation for manim
 COPY texlive-profile.txt /tmp/
@@ -79,7 +99,7 @@ RUN conda install --quiet --yes \
     'jupyterlab-lsp=3.8.*' \
     'jupyterlab-system-monitor=0.8.*' \
     'jupyterlab-git=0.32.*' \
-    'jupyterlab-tour=3.1.*' \
+    # 'jupyterlab-tour=3.1.*' \
     'jupytext=1.11.*' \
     'jupyter_nbextensions_configurator=0.4.*' \
     'jupyter_contrib_nbextensions=0.5.*' \
@@ -100,11 +120,35 @@ RUN conda install --quiet --yes \
     'manim==0.7.*' \
     'itikz==0.1.*' \
     'jupyter-www-proxy' \
-    'mytutor' && \
+    'mytutor' \
+    'jupyter-xprahtml5-proxy' \
+    'thonny' \
+    # 'ngshare_exchange==0.5.*' \
+    # 'git+https://github.com/jupyter/nbgrader.git@cdcba95ee334e667b4438532dd27093b3c4df099' && \
+    # jupyter nbextension install --symlink --sys-prefix --py nbgrader && \
+    # jupyter nbextension enable --sys-prefix --py nbgrader && \
+    # jupyter serverextension enable --sys-prefix --py nbgrader  && \
+    # jupyter nbextension disable --sys-prefix formgrader/main --section=tree && \
+    # jupyter nbextension disable --sys-prefix course_list/main --section=tree && \
+    # jupyter serverextension disable --sys-prefix nbgrader.server_extensions.course_list && \
+    && \
     conda clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}" 
+    fix-permissions "/home/${NB_USER}"
+
+# fix https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=908156
+ENV XDG_RUNTIME_DIR='/run/user/xpra'
+
+# fix http://xpra.org/trac/ticket/2174?cversion=2&cnum_hist=4
+ENV XDG_MENU_PREFIX='xfce-'
 
 COPY --chown=${NB_USER}:${NB_GID} condarc "${CONDA_DIR}/.condarc"
+
+# fix https://stackoverflow.com/questions/64770659/fvwm-menu-desktop-hanging-during-menu-creation-and-failing-with-python-exception
+COPY Menu.py /usr/lib/python3/dist-packages/xdg/
+
+# customize xpra https://xpra.org/manual.html
+COPY xpra_init.py "${CONDA_DIR}/lib/python3.8/site-packages/jupyter_xprahtml5_proxy/__init__.py"
+
 
 WORKDIR "${HOME}"
