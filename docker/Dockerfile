@@ -52,8 +52,13 @@ RUN apt-get update --yes && \
     xfonts-base \
     x11-apps \
     xvfb \
+    xubuntu-icon-theme \
+    thonny \
     python3-websockify \
     python3-dbus python3-paramiko python3-xdg python3-pyinotify python3-netifaces python3-uinput && \
+    update-icon-caches /usr/share/icons/elementary-xfce \
+    /usr/share/icons/elementary-xfce-dark /usr/share/icons/elementary-xfce-darker \
+    /usr/share/icons/elementary-xfce-darkest && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     # fix https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=908156
     mkdir -p /run/xpra &&\

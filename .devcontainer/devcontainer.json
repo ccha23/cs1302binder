@@ -3,7 +3,7 @@
 {
 	"name": "CS1302 Python 3",
 
-	"image": "chungc/cs1302:v0.8",
+	"image": "chungc/cs1302:v0.81",
 
 	// See https://faun.pub/understanding-docker-container-memory-limit-behavior-41add155236c
 	"runArgs": ["-m","4g"],
