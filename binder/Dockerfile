@@ -1,1 +1,1 @@
-FROM chungc/cs1302:v0.7
+FROM chungc/cs1302:v0.8

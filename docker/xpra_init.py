@@ -103,7 +103,6 @@ def setup_xprahtml5():
         '--clipboard-direction=both',
         '--no-mdns',  # do not advertise the xpra session on the local network
         '--no-bell',
-        '--speaker=no',
         '--no-printing',
         '--no-microphone',
         '--no-notifications',

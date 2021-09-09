@@ -48,6 +48,11 @@ RUN apt-get update --yes && \
     xfce4-taskmanager \
     xauth xinit dbus-x11 \
     xpra xpra-html5 \
+    x11-utils \
+    xfonts-base \
+    x11-apps \
+    xvfb \
+    python3-websockify \
     python3-dbus python3-paramiko python3-xdg python3-pyinotify python3-netifaces python3-uinput && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     # fix https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=908156
@@ -149,6 +154,10 @@ COPY Menu.py /usr/lib/python3/dist-packages/xdg/
 
 # customize xpra https://xpra.org/manual.html
 COPY xpra_init.py "${CONDA_DIR}/lib/python3.8/site-packages/jupyter_xprahtml5_proxy/__init__.py"
+
+# fix favico.png missing issue: some javascripts running on client side uses absolute path /favicon.png instead of ./favicon.png
+# (as they are served under /xprahtml5/ for jupyter-xprahtml5-proxy
+COPY js/ /usr/share/xpra/www/js/
 
 
 WORKDIR "${HOME}"
